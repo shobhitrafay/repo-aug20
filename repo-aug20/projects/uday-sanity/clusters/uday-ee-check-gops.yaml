@@ -1,0 +1,72 @@
+apiVersion: infra.k8smgmt.io/v3
+kind: Cluster
+metadata:
+  name: uday-ee-check-gops
+  project: uday-sanity
+spec:
+  blueprintConfig:
+    name: minimal
+    version: 3.6.0
+  cloudCredentials: uday-qa-eks
+  config:
+    accessConfig:
+      authenticationMode: API_AND_CONFIG_MAP
+      bootstrapClusterCreatorAdminPermissions: true
+    addons:
+    - name: coredns
+      version: v1.11.3-eksbuild.1
+    - name: vpc-cni
+      version: v1.19.0-eksbuild.1
+    - name: kube-proxy
+      version: v1.31.2-eksbuild.3
+    - name: aws-ebs-csi-driver
+      version: latest
+    addonsConfig: {}
+    autoModeConfig: {}
+    managedNodeGroups:
+    - ami: ami-00369ea992801deb2
+      desiredCapacity: 1
+      iam:
+        withAddonPolicies:
+          autoScaler: true
+      instanceTypes:
+      - t3.xlarge
+      maxSize: 2
+      minSize: 1
+      name: managed-ng-1
+      overrideBootstrapCommand: |
+        [AmazonLinux2023]
+      privateNetworking: true
+      volumeSize: 80
+      volumeType: gp3
+    - ami: ami-00b8eab3ace86e2c8
+      desiredCapacity: 1
+      iam:
+        withAddonPolicies:
+          autoScaler: true
+      instanceTypes:
+      - t3.xlarge
+      maxSize: 2
+      minSize: 1
+      name: managed-ng-2
+      overrideBootstrapCommand: |
+        [AmazonLinux2023]
+      privateNetworking: true
+      volumeSize: 80
+      volumeType: gp3
+    metadata:
+      name: uday-ee-check-gops
+      region: us-west-2
+      version: "1.31"
+    network:
+      cni:
+        name: aws-cni
+    vpc:
+      cidr: 192.168.0.0/16
+      clusterEndpoints:
+        privateAccess: true
+        publicAccess: false
+      nat:
+        gateway: Single
+  proxyConfig: {}
+  type: aws-eks
