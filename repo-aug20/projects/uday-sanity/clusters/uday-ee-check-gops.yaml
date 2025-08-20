@@ -25,7 +25,7 @@ spec:
     autoModeConfig: {}
     managedNodeGroups:
     - ami: ami-001be3668414c5b49
-      desiredCapacity: 1
+      desiredCapacity: 2
       iam:
         withAddonPolicies:
           autoScaler: true
