@@ -24,7 +24,7 @@ spec:
     addonsConfig: {}
     autoModeConfig: {}
     managedNodeGroups:
-    - ami: ami-001be3668414c5b49
+    - ami: ami-00369ea992801deb2
       desiredCapacity: 1
       iam:
         withAddonPolicies:
