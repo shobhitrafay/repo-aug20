@@ -24,14 +24,14 @@ spec:
     addonsConfig: {}
     autoModeConfig: {}
     managedNodeGroups:
-    - ami: ami-001be3668414c5b49
+    - ami: ami-00369ea992801deb2
       desiredCapacity: 1
       iam:
         withAddonPolicies:
           autoScaler: true
       instanceTypes:
       - t3.xlarge
-      maxSize: 1
+      maxSize: 2
       minSize: 1
       name: managed-ng-1
       overrideBootstrapCommand: |
