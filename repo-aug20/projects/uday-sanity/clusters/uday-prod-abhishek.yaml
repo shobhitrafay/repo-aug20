@@ -6,7 +6,7 @@ metadata:
 spec:
   blueprintConfig:
     name: minimal
-    version: Latest
+    version: 3.6.1
   cloudCredentials: uday-qa-eks
   config:
     accessConfig:
