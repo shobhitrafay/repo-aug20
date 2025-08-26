@@ -1,12 +1,12 @@
 apiVersion: infra.k8smgmt.io/v3
 kind: Cluster
 metadata:
-  name: uday-ee-check-gops
+  name: uday-prod-abhishek
   project: uday-sanity
 spec:
   blueprintConfig:
     name: minimal
-    version: 3.6.0
+    version: Latest
   cloudCredentials: uday-qa-eks
   config:
     accessConfig:
@@ -19,45 +19,30 @@ spec:
       version: v1.19.0-eksbuild.1
     - name: kube-proxy
       version: v1.31.2-eksbuild.3
-    - name: aws-ebs-csi-driver
-      version: latest
     addonsConfig: {}
     autoModeConfig: {}
     managedNodeGroups:
-    - ami: ami-001be3668414c5b49
-      desiredCapacity: 1
+    - amiFamily: AmazonLinux2
+      desiredCapacity: 2
       iam:
         withAddonPolicies:
           autoScaler: true
       instanceTypes:
-      - t3.xlarge
+      - t3.medium
       maxSize: 2
-      minSize: 1
-      name: managed-ng-1
-      overrideBootstrapCommand: |
-        [AmazonLinux2023]
+      minSize: 2
+      name: uday-nodegroup
       privateNetworking: true
-      volumeSize: 80
-      volumeType: gp3
-    - ami: ami-00e70af3d4f0d052c
-      desiredCapacity: 1
-      iam:
-        withAddonPolicies:
-          autoScaler: true
-      instanceTypes:
-      - t3.xlarge
-      maxSize: 2
-      minSize: 1
-      name: managed-ng-2
-      overrideBootstrapCommand: |
-        [AmazonLinux2023]
-      privateNetworking: true
+      version: "1.31"
       volumeSize: 80
       volumeType: gp3
     metadata:
-      name: uday-ee-check-gops
+      name: uday-prod-abhishek
       region: us-west-2
-      version: "1.32"
+      tags:
+        email: uday.kumar@rafay.co
+        env: qa
+      version: "1.31"
     network:
       cni:
         name: aws-cni
@@ -65,7 +50,7 @@ spec:
       cidr: 192.168.0.0/16
       clusterEndpoints:
         privateAccess: true
-        publicAccess: false
+        publicAccess: true
       nat:
         gateway: Single
   proxyConfig: {}
